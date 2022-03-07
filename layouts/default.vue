@@ -19,17 +19,18 @@
 </template>
 
 <script>
-import Moralis from 'moralis'
 import NavigationBar from '~/components/navigation.vue'
 import BottomNavigationBar from '~/components/bottomnavigation.vue'
-import { mapActions,mapState,mapMutations } from 'vuex'
+import { mapActions,mapState } from 'vuex'
 import TheSnackbar from '@/components/TheSnackbar.vue';
 export default {
+
   components:{
     NavigationBar,
     BottomNavigationBar,
     TheSnackbar
   },
+
   data () {
       return {
         windowSize: {
@@ -41,8 +42,7 @@ export default {
   computed:{
     ...mapState(
         [
-          'user',
-          'userETH'
+          'user'
         ]
       ),
   },
@@ -51,7 +51,13 @@ export default {
   mounted(){
       this.onResize()
       this.loggedin();
-      // this.load_eth_balance();
+      if(this.user.length != 0){
+        if(this.user.get('profilepic') == null || this.user.get('profilepic') == undefined ){
+          this.$router.push('/addprofile');
+        }
+      }else{
+        this.$router.push('/login');
+      }
   },
 
   methods:{
@@ -60,20 +66,7 @@ export default {
         this.windowSize = { x: window.innerWidth, y: window.innerHeight }
       },
 
-      ...mapActions(['currentUser','loggedin']),
-
-      ...mapMutations(['lock_eth','set_ethbalance']),
-
-      async load_eth_balance(){
-        if(this.user.length != 0){
-          const web3 = await Moralis.Web3.enable();
-          const balances =  await Moralis.Web3.getERC20();
-          console.log(web3)
-          // let currentBalance = web3.utils.fromWei(balances.balance, 'ether')
-          // this.set_ethbalance(parseFloat(currentBalance).toFixed(4));
-          // console.log(parseFloat(currentBalance).toFixed(4));
-        }
-      },
+      ...mapActions(['loggedin']),
   }
 
   

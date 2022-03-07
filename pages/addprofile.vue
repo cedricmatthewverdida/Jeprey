@@ -1,19 +1,24 @@
 <template>
     <div>
-        <Snack
-        :text="'Login'"
-        :icon="'mdi-check-decagram'"
-        :color="'warning'"
-        />
+        <div class="d-flex justify-center">
+
+            <Profilepic class="mt-15"/>
+
+        </div>
     </div>
 </template>
 
 <script>
-    import Snack from '~/components/snackbar.vue'
+    import Profilepic from '~/components/profile/profilepic.vue'
     export default {
+
+        layout: 'newuser',
+
         components:{
-            Snack
+            Profilepic
         },
+
+
 
 
 

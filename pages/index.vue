@@ -74,6 +74,8 @@
     import PostCard from '~/components/post/post_card.vue'
     import _ from 'lodash';
     export default {
+
+
         components:{
             Navs,
             CreatePost,
@@ -86,8 +88,6 @@
 
                 isloading: false,
                 isloadmore:false,
-
-
 
                 openmodal: false,
                 post: [],
@@ -155,12 +155,8 @@
 
 
         mounted(){
-            if(Moralis.User.current()){
-                this.currentLogin = Moralis.User.current()
-                this.initPost()
-            }else{
-                this.$router.push('/login')
-            }
+            this.currentLogin = Moralis.User.current()
+            this.initPost()
         }
     }
 </script>
