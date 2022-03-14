@@ -6,21 +6,8 @@
 
             <Navs />
 
-            <div class="d-flex justify-center">
-                <v-text-field
-                label="Whats in your mind?"
-                class="customizefield"
-                hide-details
-                rounded
-                filled
-                readonly
-                @click="openmodal = true"
-                />
-            </div>
 
-            <CreatePost
-            v-model="openmodal"
-            />
+                
 
 
             <Preloadcard v-if="!isloading"/>
@@ -88,8 +75,6 @@
 
                 isloading: false,
                 isloadmore:false,
-
-                openmodal: false,
                 post: [],
                 postImg: [],
                 
@@ -108,10 +93,6 @@
             loadmore : function (){
                 this.page++;
                 this.fetch_post()
-            },
-
-            modal : function (modal) {
-                return this.openmodal = modal;
             },
 
 

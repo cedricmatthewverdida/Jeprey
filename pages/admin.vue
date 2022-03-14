@@ -1,6 +1,9 @@
 <template>
     <div>
-
+    <CreatePost
+      v-model="openmodal"
+      :users="users"
+    />
     <v-data-table
         :headers="headers"
         :items="users"
@@ -45,6 +48,14 @@
           v-on="on"
         >
           Add new item
+        </v-btn>
+
+        <v-btn
+          color="primary"
+          dark
+          @click="openmodal = true"
+        >
+          Create post
         </v-btn>
       </template>
       <v-card>
@@ -110,12 +121,16 @@
 
 <script>
     import Moralis from 'moralis';
+    import CreatePost from '~/components/post/createpost.vue';
     export default {
 
-
+        components:{
+          CreatePost
+        },
         data() {
             return {
               items:["student","teacher"],
+              openmodal: false,
               type:'',
               email:'',
               password:'',
