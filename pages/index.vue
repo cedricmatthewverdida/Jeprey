@@ -4,8 +4,6 @@
         
         
 
-            <Navs />
-
 
                 
 
@@ -17,6 +15,7 @@
                 :key="key"
             >
                 <PostCard
+                v-if="canViewPost(posts.get('students')) == true"
                 :postid="posts"
                 :description="posts.attributes.description"
                 :date="posts.createdAt"
@@ -89,6 +88,11 @@
     
 
         methods: {
+
+            canViewPost : function (obj){
+                console.log(obj)
+                return obj.find(element => element.id == Moralis.User.current().id) == undefined ? false : true
+            },
 
             loadmore : function (){
                 this.page++;

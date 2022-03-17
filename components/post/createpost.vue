@@ -26,6 +26,22 @@
 
         <v-card-text>
 
+
+          
+          <v-combobox
+            v-model="usertosee"
+            filled
+            rounded
+            :items="users"
+            :item-text="(users) => users.get('username')"
+            :item-value="(users) => users.id"
+            label="Users who can view the post"
+            multiple
+          >
+            <template slot='item' slot-scope='{ item }'>
+                {{item.get('username')}}
+            </template>
+          </v-combobox>
       
 
           <v-textarea
@@ -68,7 +84,8 @@
             return {
                 loads: false,
                 dialog: false,
-                description: ''
+                description: '',
+                usertosee: []
             }
         },
 
@@ -79,7 +96,8 @@
         },
 
         props: {
-          value: Boolean
+          value: Boolean,
+          users: Array
         },
 
         computed: {
@@ -104,7 +122,8 @@
 
                   await Post.save({
                     postedby: Moralis.User.current(),
-                    description: this.description
+                    description: this.description,
+                    students: this.usertosee
                   })
                   .then((save) => {
                    
